@@ -3,111 +3,64 @@ const styles = {
   line: {
     stroke:'#f0f0f0',
     strokeWidth:1
+  },
+  frame: {
+    stroke:'#f0f0f0',
+    strokeWidth:1,
+    fill: 'none'
+  },
+  svg:{
+    margin: '10px'
   }
 }
 
-const lines = [
-  // horizontals
-  { x1:   0, y1:   0, x2: 800, y2: 0   },
-  { x1:   0, y1: 100, x2: 800, y2: 100 },
-  { x1:   0, y1: 200, x2: 800, y2: 200 },
-  { x1:   0, y1: 300, x2: 800, y2: 300 },
-  { x1:   0, y1: 400, x2: 800, y2: 400 },
+const imageWidth = 250;
+const sideLength = (Math.sqrt(5)/4)*imageWidth;
+const ratio = 1.059;
+const width = 3.5 * imageWidth;
+const height = imageWidth;
 
-  // verticals
-  { x1:   0, y1:   0, x2:   0, y2: 400 },
-  { x1: 100, y1:   0, x2: 100, y2: 400 },
-  { x1: 200, y1:   0, x2: 200, y2: 400 },
-  { x1: 300, y1:   0, x2: 300, y2: 400 },
-  { x1: 400, y1:   0, x2: 400, y2: 400 },
-  { x1: 500, y1:   0, x2: 500, y2: 400 },
-  { x1: 600, y1:   0, x2: 600, y2: 400 },
-  { x1: 700, y1:   0, x2: 700, y2: 400 },
-  { x1: 800, y1:   0, x2: 800, y2: 400 },
+const a = {
+  x: (3/7) * width,
+  y: height/4
+}
+
+const b = {
+  x: (1/7) * width,
+  y: height/4
+}
+
+
+const lines = [
+  // vertical
+  { x1: (1/7) * width, y1:        0, x2: (1/7) * width, y2:   height },
 
   // up diagonals
-  { x1:   0, y1:   0, x2: 800, y2: 400 },
-  { x1: 200, y1:   0, x2: 800, y2: 300 },
-  { x1: 400, y1:   0, x2: 800, y2: 200 },
-  { x1: 600, y1:   0, x2: 800, y2: 100 },
-  { x1:   0, y1: 100, x2: 600, y2: 400 },
-  { x1:   0, y1: 200, x2: 400, y2: 400 },
-  { x1:   0, y1: 300, x2: 200, y2: 400 },
+  { x1: (1/7) * width, y1: height/2, x2: (3/7) * width, y2:        0 },
+  { x1: (1/7) * width, y1:   height, x2: (5/7) * width, y2:        0 },
+  { x1: (3/7) * width, y1:   height, x2:         width, y2:        0 },
+  { x1: (5/7) * width, y1:   height, x2:         width, y2: height/2 },
 
   // down diagonals
-  { x1:   0, y1: 100, x2: 200, y2: 0   },
-  { x1:   0, y1: 200, x2: 400, y2: 0   },
-  { x1:   0, y1: 300, x2: 600, y2: 0   },
-  { x1:   0, y1: 400, x2: 800, y2: 0   },
-  { x1: 200, y1: 400, x2: 800, y2: 100 },
-  { x1: 400, y1: 400, x2: 800, y2: 200 },
-  { x1: 600, y1: 400, x2: 800, y2: 300 },
+  { x1: (1/7) * width, y1: height/2, x2: (3/7) * width, y2:   height },
+  { x1: (1/7) * width, y1:        0, x2: (5/7) * width, y2:   height },
+  { x1: (3/7) * width, y1:        0, x2:         width, y2:   height },
+  { x1: (5/7) * width, y1:        0, x2:         width, y2: height/2 }
 ]
+
 const Flexagon = ({ rotation, x, y }) => (
-  <svg width="800" height="400">
+  <svg style={styles.svg} width={width*5} height={height*5}>
+
     <defs>
-        <pattern id="pattern1" height="100%" width="100%" patternContentUnits="objectBoundingBox" patternTransform="rotate(15), translate(-80, -20)">
-            <image height="1" width="1" preserveAspectRatio="none" xlinkHref="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Gl%C3%BChwendel_brennt_durch.jpg/399px-Gl%C3%BChwendel_brennt_durch.jpg" />
-        </pattern>
-        <pattern id="paa1" height="100%" width="100%" patternContentUnits="objectBoundingBox" patternTransform="rotate(15), translate(25, 25)">
-            <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://yt3.ggpht.com/-6hHU9OPxWrE/AAAAAAAAAAI/AAAAAAAAAAA/o7JZ7waBSL8/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" />
-        </pattern>
-
-        <pattern
-          id="a"
-          height="100%"
-          width="100%"
-          patternContentUnits="objectBoundingBox"
-        >
-          <image
-            height="1"
-            width="1"
-            preserveAspectRatio="none"
-            xlinkHref="https://forum.openframeworks.cc/uploads/default/5632/762414838098cb6e.gif"
-          />
-        </pattern>
-
-
-
-        <pattern
-          id="aleft"
-          height="100%"
-          width="100%"
-          patternContentUnits="objectBoundingBox"
-          patternTransform={`rotate(${rotation}, ${x}, ${y})`}
-        >
-          <image
-            height="1"
-            width="1"
-            preserveAspectRatio="none"
-            xlinkHref="https://forum.openframeworks.cc/uploads/default/5632/762414838098cb6e.gif"
-          />
-        </pattern>
-        <pattern
-          id="aright"
-          height="100%"
-          width="100%"
-          patternContentUnits="objectBoundingBox"
-        >
-          <image
-            height="1"
-            width="1"
-            preserveAspectRatio="none"
-            xlinkHref="https://yt3.ggpht.com/-6hHU9OPxWrE/AAAAAAAAAAI/AAAAAAAAAAA/o7JZ7waBSL8/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"
-          />
-        </pattern>
-
-        <clipPath id="a2">
-          <polygon points="0 200,100 250,200 200,100 150"/>
-        </clipPath>
-
-        <clipPath id="a1">
-          <polygon points="200 200,300 250,400 200,300 150"/>
-        </clipPath>
-
-        <clipPath id="a3">
-          <polygon points="400 200,500 250,600 200,500 150"/>
-        </clipPath>
+      <pattern id="a" height="100%" width="100%" patternContentUnits="objectBoundingBox">
+        <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://forum.openframeworks.cc/uploads/default/5632/762414838098cb6e.gif"/>
+      </pattern>
+      <clipPath id="a1">
+        <polygon points={`${a.x} ${a.y + imageWidth/4},${a.x + imageWidth/2} ${a.y + imageWidth/2},${a.x + imageWidth} ${a.y + imageWidth/4},${a.x + imageWidth/2} ${a.y}`}/>
+      </clipPath>
+      <clipPath id="b1">
+        <polygon points={`0 ${imageWidth/4},0 ${imageWidth/4 + sideLength},${imageWidth/2} ${imageWidth/2 + sideLength},${imageWidth/2} ${imageWidth/2}`}/>
+      </clipPath>
     </defs>
 
     <g style={styles.line}>
@@ -117,11 +70,12 @@ const Flexagon = ({ rotation, x, y }) => (
         ))
       }
     </g>
+    <rect style={styles.frame} x="0" y="0" width={width} height={height}/>
 
-    <rect fill="url(#aleft)" height="200" width="200" x="0" y="150"  style={{clipPath: 'url(#a2)'}} / >
-    <rect fill="url(#a)" height="200" width="200" x="200" y="150" style={{clipPath: 'url(#a1)'}} / >
-    <rect fill="url(#aright)" height="200" width="200" x="400" y="150" style={{clipPath: 'url(#a3)'}} / >
-
+    <rect fill="url(#a)" height={ratio * imageWidth} width={imageWidth} x={a.x} y={a.y} style={{clipPath: 'url(#a1)'}} />
+    <g transform={`translate(0 0) rotate(127 ${imageWidth/2} ${imageWidth/2})`}>
+      <rect fill="url(#a)" height={ratio * imageWidth} width={imageWidth} style={{clipPath: 'url(#b1)'}} />
+    </g>
   </svg>
 );
 
