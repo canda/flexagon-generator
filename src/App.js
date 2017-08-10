@@ -36,11 +36,6 @@ class App extends React.Component {
           x={this.state.x}
           y={this.state.y}
         />
-        <div>
-          <input type="number" onChange={this.handleRotationChange} value={this.state.rotation} />
-          <input type="number" onChange={this.handleXChange} value={this.state.x} />
-          <input type="number" onChange={this.handleYChange} value={this.state.y} />
-        </div>
       </div>
     );
   }

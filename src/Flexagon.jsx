@@ -1,22 +1,22 @@
 import React from 'react';
 const styles = {
   line: {
-    stroke:'#f0f0f0',
-    strokeWidth:1
+    stroke:'#000000',
+    strokeWidth:4
   },
   frame: {
-    stroke:'#f0f0f0',
-    strokeWidth:1,
+    stroke:'#000000',
+    strokeWidth:4,
     fill: 'none'
   },
   svg:{
-    margin: '10px'
+    margin: '250px'
   }
 }
 
 const toRadians = angle => angle * (Math.PI / 180);
 
-const imageWidth = 250;
+const imageWidth = 300;
 const imageHeigth = imageWidth/4 + Math.sqrt(Math.pow(imageWidth,2) - Math.pow(imageWidth/2,2));
 const sideLength = (Math.sqrt(5)/4)*imageWidth;
 const width = 3.5 * imageWidth;
@@ -56,12 +56,16 @@ const lines = [
 ]
 
 const Flexagon = ({ rotation, x, y }) => (
-  <svg style={styles.svg} width={width*5} height={height*5}>
+  <svg style={styles.svg} width={width} height={height}>
 
     <defs>
       <pattern id="a" height="100%" width="100%" patternContentUnits="objectBoundingBox">
         <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://yt3.ggpht.com/-6hHU9OPxWrE/AAAAAAAAAAI/AAAAAAAAAAA/o7JZ7waBSL8/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"/>
       </pattern>
+      <pattern id="a" height="100%" width="100%" patternContentUnits="objectBoundingBox">
+        <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://ih1.redbubble.net/image.109336634.1604/flat,550x550,075,f.u1.jpg"/>
+      </pattern>
+
       <clipPath id="a1">
         <polygon points={`0 ${imageWidth/4},
           ${imageWidth/2} ${imageWidth/2},
