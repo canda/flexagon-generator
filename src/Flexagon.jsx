@@ -17,7 +17,8 @@ const styles = {
 const toRadians = angle => angle * (Math.PI / 180);
 
 const imageWidth = 300;
-const imageHeigth = imageWidth/4 + Math.sqrt(Math.pow(imageWidth,2) - Math.pow(imageWidth/2,2));
+const equilateralTriangleHeight = Math.sqrt(Math.pow(imageWidth,2) - Math.pow(imageWidth/2,2));
+const imageHeigth = imageWidth/4 + equilateralTriangleHeight;
 const sideLength = (Math.sqrt(5)/4)*imageWidth;
 const width = 4 * imageWidth;
 const height = imageWidth;
@@ -37,6 +38,45 @@ const a3 = {
   y: height/4
 }
 
+const b1a = {
+  x: (7/8) * width,
+  y: height/4
+}
+
+const b1b = {
+  x: (2/8) * width,
+  y: height/4
+}
+
+const b2 = {
+  x: (4/8) * width,
+  y: height/4
+}
+
+const b3 = {
+  x: (4/8) * width,
+  y: height/4
+}
+
+const c1a = {
+  x: (7/8) * width,
+  y: 3*height/4
+}
+
+const c1b = {
+  x: (2/8) * width,
+  y: 3*height/4
+}
+
+const c2 = {
+  x: (4/8) * width,
+  y: 3*height/4
+}
+
+const c3 = {
+  x: (4/8) * width,
+  y: 3*height/4
+}
 
 const innerLines = [
   // vertical
@@ -84,8 +124,11 @@ const Flexagon = ({ rotation, x, y }) => (
       <pattern id="a" height="100%" width="100%" patternContentUnits="objectBoundingBox">
         <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://yt3.ggpht.com/-6hHU9OPxWrE/AAAAAAAAAAI/AAAAAAAAAAA/o7JZ7waBSL8/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"/>
       </pattern>
-      <pattern id="a" height="100%" width="100%" patternContentUnits="objectBoundingBox">
+      <pattern id="b" height="100%" width="100%" patternContentUnits="objectBoundingBox">
         <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://ih1.redbubble.net/image.109336634.1604/flat,550x550,075,f.u1.jpg"/>
+      </pattern>
+      <pattern id="c" height="100%" width="100%" patternContentUnits="objectBoundingBox">
+        <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://8sph.azureedge.net/media/Default/_Profiles/8f14fafe/ae24358d/reactjs.png"/>
       </pattern>
 
       <clipPath id="a1">
@@ -105,6 +148,28 @@ const Flexagon = ({ rotation, x, y }) => (
           ${(imageWidth/2) + (Math.sin(toRadians(3.44))*sideLength)} ${imageHeigth - (Math.cos(toRadians(3.44))*sideLength)},
           ${imageWidth/2} ${imageHeigth},
           ${(imageWidth - Math.sin(toRadians(3.44))*sideLength)} ${(imageWidth/4) + (Math.cos(toRadians(3.44))*sideLength)}`}/>
+      </clipPath>
+      <clipPath id="b1a">
+        <polygon points={`${imageWidth/2} ${imageHeigth - imageWidth/2},
+          ${imageWidth} ${imageHeigth - imageWidth/4},
+          ${imageWidth/2} ${imageHeigth}`}/>
+      </clipPath>
+      <clipPath id="b1b">
+        <polygon points={`${imageWidth/2} ${imageHeigth - imageWidth/2},
+          0 ${imageHeigth - imageWidth/4},
+          ${imageWidth/2} ${imageHeigth}`}/>
+      </clipPath>
+      <clipPath id="b2">
+        <polygon points={`0 ${imageHeigth - imageWidth/4},
+        ${(imageWidth/2) - (Math.sin(toRadians(3.44))*sideLength)} ${Math.cos(toRadians(3.44))*sideLength},
+        ${imageWidth/2} 0,
+        ${Math.sin(toRadians(3.44))*sideLength} ${imageHeigth - imageWidth/4 - Math.cos(toRadians(3.44))*sideLength}`}/>
+      </clipPath>
+      <clipPath id="b3">
+        <polygon points={`${imageWidth/2} 0,
+        ${(imageWidth/2) + (Math.sin(toRadians(3.44))*sideLength)} ${Math.cos(toRadians(3.44))*sideLength},
+        ${imageWidth} ${imageHeigth - imageWidth/4},
+        ${(imageWidth) - (Math.sin(toRadians(3.44))*sideLength)} ${imageHeigth - imageWidth/4 - Math.cos(toRadians(3.44))*sideLength}`}/>
       </clipPath>
     </defs>
 
@@ -127,8 +192,33 @@ const Flexagon = ({ rotation, x, y }) => (
       <g transform={`translate(${a3.x - imageWidth} ${a3.y}) rotate(-120 ${imageWidth} ${imageWidth/4})`}>
         <rect fill="url(#a)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#a3)'}} />
       </g>
-    </g>
+      
+      <g transform={`translate(${b1a.x - imageWidth} ${b1a.y - equilateralTriangleHeight}) rotate(180 ${imageWidth} ${imageHeigth - imageWidth/4})`}>
+        <rect fill="url(#b)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#b1a)'}} />
+      </g>
+      <g transform={`translate(${b1b.x + imageWidth/2} ${b1b.y - equilateralTriangleHeight}) rotate(180 0 ${imageHeigth - imageWidth/4})`}>
+        <rect fill="url(#b)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#b1b)'}} />
+      </g>
+      <g transform={`translate(${b2.x} ${b2.y}) rotate(60 ${imageWidth/2} 0)`}>
+        <rect fill="url(#b)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#b2)'}} />
+      </g>
+      <g transform={`translate(${b3.x} ${b3.y}) rotate(-60 ${imageWidth/2} 0)`}>
+        <rect fill="url(#b)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#b3)'}} />
+      </g>
 
+      <g transform={`translate(${c1a.x - imageWidth} ${c1a.y - equilateralTriangleHeight}) rotate(180 ${imageWidth} ${imageHeigth - imageWidth/4})`}>
+        <rect fill="url(#c)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#b1a)'}} />
+      </g>
+      <g transform={`translate(${c1b.x + imageWidth/2} ${c1b.y - equilateralTriangleHeight}) rotate(180 0 ${imageHeigth - imageWidth/4})`}>
+        <rect fill="url(#c)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#b1b)'}} />
+      </g>
+      <g transform={`translate(${c2.x} ${c2.y}) rotate(60 ${imageWidth/2} 0)`}>
+        <rect fill="url(#c)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#b2)'}} />
+      </g>
+      <g transform={`translate(${c3.x} ${c3.y}) rotate(-60 ${imageWidth/2} 0)`}>
+        <rect fill="url(#c)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#b3)'}} />
+      </g>
+    </g>
   </svg>
 );
 
