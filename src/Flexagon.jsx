@@ -1,16 +1,16 @@
 import React from 'react';
 const styles = {
   line: {
-    stroke:'#f0f0f0',
-    strokeWidth:1
+    stroke:'#000000',
+    strokeWidth:3
   },
   frame: {
-    stroke:'#f0f0f0',
-    strokeWidth:1,
+    stroke:'#000000',
+    strokeWidth:3,
     fill: 'none'
   },
   svg:{
-    margin: '0px'
+    margin: '40px'
   }
 }
 
@@ -78,6 +78,36 @@ const c3 = {
   y: 3*height/4
 }
 
+const d1a = {
+  x: (4/8) * width,
+  y: -height/4
+}
+
+const d2a = {
+  x: (2/8) * width,
+  y: -height/4
+}
+
+const d3a = {
+  x: (6/8) * width,
+  y: -height/4
+}
+
+const d1b = {
+  x: (4/8) * width,
+  y: 3*height/4
+}
+
+const d2b = {
+  x: (2/8) * width,
+  y: 3*height/4
+}
+
+const d3b = {
+  x: (6/8) * width,
+  y: 3*height/4
+}
+
 const innerLines = [
   // vertical
   { x1: (0/8) * width, y1: 0,                  x2: (0/8) * width, y2: 2 * height         },
@@ -130,6 +160,9 @@ const Flexagon = ({ rotation, x, y }) => (
       <pattern id="c" height="100%" width="100%" patternContentUnits="objectBoundingBox">
         <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://8sph.azureedge.net/media/Default/_Profiles/8f14fafe/ae24358d/reactjs.png"/>
       </pattern>
+      <pattern id="d" height="100%" width="100%" patternContentUnits="objectBoundingBox">
+        <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://octodex.github.com/images/octobiwan.jpg"/>
+      </pattern>
 
       <clipPath id="a1">
         <polygon points={`0 ${imageWidth/4},
@@ -149,6 +182,7 @@ const Flexagon = ({ rotation, x, y }) => (
           ${imageWidth/2} ${imageHeigth},
           ${(imageWidth - Math.sin(toRadians(3.44))*sideLength)} ${(imageWidth/4) + (Math.cos(toRadians(3.44))*sideLength)}`}/>
       </clipPath>
+
       <clipPath id="b1a">
         <polygon points={`${imageWidth/2} ${imageHeigth - imageWidth/2},
           ${imageWidth} ${imageHeigth - imageWidth/4},
@@ -171,6 +205,38 @@ const Flexagon = ({ rotation, x, y }) => (
         ${imageWidth} ${imageHeigth - imageWidth/4},
         ${(imageWidth) - (Math.sin(toRadians(3.44))*sideLength)} ${imageHeigth - imageWidth/4 - Math.cos(toRadians(3.44))*sideLength}`}/>
       </clipPath>
+
+      <clipPath id="d1a">
+        <polygon points={`0 ${imageWidth/4},
+          ${imageWidth/2} ${imageWidth/2},
+          ${imageWidth} ${imageWidth/4}`}/>
+      </clipPath>
+      <clipPath id="d2a">
+        <polygon points={`0 ${imageWidth/4},
+          ${imageWidth/2} ${imageHeigth},
+          ${(imageWidth/2) - (Math.sin(toRadians(3.44))*sideLength)} ${imageHeigth - (Math.cos(toRadians(3.44))*sideLength)}`}/>
+      </clipPath>
+      <clipPath id="d3a">
+        <polygon points={`${imageWidth} ${imageWidth/4},
+          ${(imageWidth/2) + (Math.sin(toRadians(3.44))*sideLength)} ${imageHeigth - (Math.cos(toRadians(3.44))*sideLength)},
+          ${imageWidth/2} ${imageHeigth}`}/>
+      </clipPath>
+
+      <clipPath id="d1b">
+        <polygon points={`0 ${imageWidth/4},
+          ${imageWidth} ${imageWidth/4},
+          ${imageWidth/2} 0`}/>
+      </clipPath>
+      <clipPath id="d2b">
+        <polygon points={`0 ${imageWidth/4},
+          ${(Math.sin(toRadians(3.44))*sideLength)} ${(imageWidth/4) + (Math.cos(toRadians(3.44))*sideLength)},
+          ${imageWidth/2} ${imageHeigth}`}/>
+      </clipPath>
+      <clipPath id="d3b">
+        <polygon points={`${imageWidth} ${imageWidth/4},
+          ${imageWidth/2} ${imageHeigth},
+          ${(imageWidth - Math.sin(toRadians(3.44))*sideLength)} ${(imageWidth/4) + (Math.cos(toRadians(3.44))*sideLength)}`}/>
+      </clipPath>
     </defs>
 
     <g style={styles.line}>
@@ -192,7 +258,7 @@ const Flexagon = ({ rotation, x, y }) => (
       <g transform={`translate(${a3.x - imageWidth} ${a3.y}) rotate(-120 ${imageWidth} ${imageWidth/4})`}>
         <rect fill="url(#a)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#a3)'}} />
       </g>
-      
+
       <g transform={`translate(${b1a.x - imageWidth} ${b1a.y - equilateralTriangleHeight}) rotate(180 ${imageWidth} ${imageHeigth - imageWidth/4})`}>
         <rect fill="url(#b)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#b1a)'}} />
       </g>
@@ -217,6 +283,25 @@ const Flexagon = ({ rotation, x, y }) => (
       </g>
       <g transform={`translate(${c3.x} ${c3.y}) rotate(-60 ${imageWidth/2} 0)`}>
         <rect fill="url(#c)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#b3)'}} />
+      </g>
+
+      <g transform={`translate(${d1a.x} ${d1a.y}) rotate(0)`}>
+        <rect fill="url(#d)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#d1a)'}} />
+      </g>
+      <g transform={`translate(${d2a.x + imageWidth} ${d2a.y}) rotate(120 0 ${imageWidth/4})`}>
+        <rect fill="url(#d)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#d2a)'}} />
+      </g>
+      <g transform={`translate(${d3a.x - imageWidth} ${d3a.y}) rotate(-120 ${imageWidth} ${imageWidth/4})`}>
+        <rect fill="url(#d)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#d3a)'}} />
+      </g>
+      <g transform={`translate(${d1b.x} ${d1b.y}) rotate(0)`}>
+        <rect fill="url(#d)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#d1b)'}} />
+      </g>
+      <g transform={`translate(${d2b.x + imageWidth} ${d2b.y}) rotate(120 0 ${imageWidth/4})`}>
+        <rect fill="url(#d)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#d2b)'}} />
+      </g>
+      <g transform={`translate(${d3b.x - imageWidth} ${d3b.y}) rotate(-120 ${imageWidth} ${imageWidth/4})`}>
+        <rect fill="url(#d)" height={imageHeigth} width={imageWidth} style={{clipPath: 'url(#d3b)'}} />
       </g>
     </g>
   </svg>
