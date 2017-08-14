@@ -147,12 +147,14 @@ const innerLines = [
 
 ]
 
-const Flexagon = ({ rotation, x, y }) => (
+const FlexagonUI = ({ rotation, x, y, selectImage, selectedImage }) => (
+  <div>
+    <input type="file" onChange={selectImage} />
   <svg style={styles.svg} width={width} height={2 * height}>
 
     <defs>
       <pattern id="a" height="100%" width="100%" patternContentUnits="objectBoundingBox">
-        <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://yt3.ggpht.com/-6hHU9OPxWrE/AAAAAAAAAAI/AAAAAAAAAAA/o7JZ7waBSL8/s900-c-k-no-mo-rj-c0xffffff/photo.jpg"/>
+        <image height="1" width="1" preserveAspectRatio="none" xlinkHref={selectedImage || 'https://yt3.ggpht.com/-6hHU9OPxWrE/AAAAAAAAAAI/AAAAAAAAAAA/o7JZ7waBSL8/s900-c-k-no-mo-rj-c0xffffff/photo.jpg'}/>
       </pattern>
       <pattern id="b" height="100%" width="100%" patternContentUnits="objectBoundingBox">
         <image height="1" width="1" preserveAspectRatio="none" xlinkHref="https://ih1.redbubble.net/image.109336634.1604/flat,550x550,075,f.u1.jpg"/>
@@ -305,6 +307,45 @@ const Flexagon = ({ rotation, x, y }) => (
       </g>
     </g>
   </svg>
+  </div>
 );
+
+class Flexagon extends React.Component {
+  constructor(props) {
+    super(props);
+    this.selectImage = this.selectImage.bind(this);
+    this.state = {};
+  }
+
+  selectImage(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        selectedImage: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file)
+  }
+  
+  render() {
+    return (
+      <div className="App">
+        <FlexagonUI
+          rotation={this.props.rotation}
+          x={this.props.x}
+          y={this.props.y}
+          selectImage={this.selectImage}
+          selectedImage={this.state.selectedImage}
+        />
+      </div>
+    );
+  }
+}
 
 export default Flexagon;
